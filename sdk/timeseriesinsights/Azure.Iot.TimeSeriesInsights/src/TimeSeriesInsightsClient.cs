@@ -1380,5 +1380,112 @@ namespace Azure.Iot.TimeSeriesInsights
                 throw;
             }
         }
+
+        /// <summary>
+        /// Creates Time Series instances types asynchronously. If a provided instance type is already in use, then this will attempt to replace the existing instance type with the provided Time Series Instance.
+        /// </summary>
+        /// <param name="timeSeriesTypes">The Time Series instances types to be created or replaced.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// List of error objects corresponding by position to the <paramref name="timeSeriesTypes"/> array in the request.
+        /// An error object will be set when operation is unsuccessful.
+        /// </returns>
+        /// <remarks>
+        /// For more samples, see <see href="https://github.com/Azure/azure-sdk-for-net/tree/master/sdk/timeseriesinsights/Azure.Iot.TimeSeriesInsights/samples">our repo samples</see>.
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        /// The exception is thrown when <paramref name="timeSeriesTypes"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The exception is thrown when <paramref name="timeSeriesTypes"/> is empty.
+        /// </exception>
+        public virtual async Task<Response<InstancesOperationError[]>> CreateOrReplaceTimeSeriesTypesAsync(
+            IEnumerable<TimeSeriesType> timeSeriesTypes,
+            CancellationToken cancellationToken = default)
+        {
+
+            using DiagnosticScope scope = _clientDiagnostics
+                .CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(CreateOrReplaceTimeSeriesTypes)}");
+            scope.Start();
+
+            try
+            {
+                Argument.AssertNotNullOrEmpty(timeSeriesTypes, nameof(timeSeriesTypes));
+
+                TypesBatchRequest batchRequest = new TypesBatchRequest();
+
+                foreach (TimeSeriesType type in timeSeriesTypes)
+                {
+                    batchRequest.Put.Add(type);
+                }
+
+                Response<TypesBatchResponse> executeBatchResponse = await _timeSeriesTypesRestClient
+                    .ExecuteBatchAsync(batchRequest, _clientSessionId, cancellationToken)
+                    .ConfigureAwait(false);
+
+                // Extract the errors array from the response. If there was an error with creating or replacing one of the types,
+                // it will be placed at the same index location that corresponds to its place in the input array.
+                IEnumerable<InstancesOperationError> errorResults = executeBatchResponse.Value.Put.Select((result) => result.Error);
+
+                return Response.FromValue(errorResults.ToArray(), executeBatchResponse.GetRawResponse());
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates Time Series instances types asynchronously. If a provided instance type is already in use, then this will attempt to replace the existing instance type with the provided Time Series Instance.
+        /// </summary>
+        /// <param name="timeSeriesTypes">The Time Series instances types to be created or replaced.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// List of error objects corresponding by position to the <paramref name="timeSeriesTypes"/> array in the request.
+        /// An error object will be set when operation is unsuccessful.
+        /// </returns>
+        /// <seealso cref="CreateOrReplaceTimeSeriesInstancesAsync(IEnumerable{TimeSeriesInstance}, CancellationToken)">
+        /// See the asynchronous version of this method for examples.
+        /// </seealso>
+        /// <exception cref="ArgumentNullException">
+        /// The exception is thrown when <paramref name="timeSeriesTypes"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The exception is thrown when <paramref name="timeSeriesTypes"/> is empty.
+        /// </exception>
+        public virtual Response<InstancesOperationError[]> CreateOrReplaceTimeSeriesTypes(
+            IEnumerable<TimeSeriesType> timeSeriesTypes,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(CreateOrReplaceTimeSeriesInstances)}");
+            scope.Start();
+
+            try
+            {
+                Argument.AssertNotNullOrEmpty(timeSeriesTypes, nameof(timeSeriesTypes));
+
+                TypesBatchRequest batchRequest = new TypesBatchRequest();
+
+                foreach (TimeSeriesType type in timeSeriesTypes)
+                {
+                    batchRequest.Put.Add(type);
+                }
+
+                Response<TypesBatchResponse> executeBatchResponse = _timeSeriesTypesRestClient
+                    .ExecuteBatch(batchRequest, _clientSessionId, cancellationToken);
+
+                // Extract the errors array from the response. If there was an error with creating or replacing one of the types,
+                // it will be placed at the same index location that corresponds to its place in the input array.
+                IEnumerable<InstancesOperationError> errorResults = executeBatchResponse.Value.Put.Select((result) => result.Error);
+
+                return Response.FromValue(errorResults.ToArray(), executeBatchResponse.GetRawResponse());
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
     }
 }
