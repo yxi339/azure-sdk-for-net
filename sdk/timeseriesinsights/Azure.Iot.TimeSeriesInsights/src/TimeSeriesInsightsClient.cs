@@ -1403,7 +1403,6 @@ namespace Azure.Iot.TimeSeriesInsights
             IEnumerable<TimeSeriesType> timeSeriesTypes,
             CancellationToken cancellationToken = default)
         {
-
             using DiagnosticScope scope = _clientDiagnostics
                 .CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(CreateOrReplaceTimeSeriesTypes)}");
             scope.Start();
