@@ -101,7 +101,7 @@ jobs:
       - template: /eng/pipelines/templates/steps/install-dotnet.yml
       - pwsh: >
           dotnet test eng/service.proj
-          --framework $(TestTargetFramework)
+          --runtime $(TestTargetFramework)
           --filter "TestCategory!=Manually"
           --logger "trx"
           --logger:"console;verbosity=normal"
