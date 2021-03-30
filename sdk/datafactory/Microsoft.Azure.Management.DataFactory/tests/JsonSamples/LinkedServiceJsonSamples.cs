@@ -204,6 +204,38 @@ namespace DataFactory.Tests.JsonSamples
 }";
 
         [JsonSample]
+        public const string AzureSqlMILinkedServiceWithAlwaysEncrypted = @"
+{
+    name: ""Test-Windows-Azure-SQL-MI-LinkedService-with-AlwaysEncrypted"",
+    properties:
+    {
+        type: ""AzureSqlMI"",
+        typeProperties:
+        {
+            connectionString: {
+                value : ""fakeConnString"",
+                type : ""SecureString""
+            },
+            servicePrincipalId: ""fakeSPID"",
+            servicePrincipalKey: {
+                value: ""fakeSPKey"",
+                type: ""SecureString""
+            },
+            tenant: ""fakeTenant"",
+            azureCloudType: ""AzurePublic"",
+            alwaysEncryptedSettings: {
+                alwaysEncryptedAkvAuthType: ""ServicePrincipal"",
+                servicePrincipalId: ""fakeSPID"",
+                servicePrincipalKey: {
+                    value: ""fakeSPKey"",
+                    type: ""SecureString""
+                }
+            }
+        }
+    }
+}";
+
+        [JsonSample]
         public const string AzureSqlLinkedServiceWithPasswordInAKV = @"
 {
     name: ""Test-Windows-Azure-SQL-LinkedService-with-Password-in-AKV"",
@@ -223,6 +255,39 @@ namespace DataFactory.Tests.JsonSamples
                     type : ""LinkedServiceReference"", 
                     referenceName : ""AKVLinkedService"" 
                 } 
+            }
+        }
+    }
+}";
+
+        [JsonSample]
+        public const string AzureSqlLinkedServiceWithAlwaysEncrypted = @"
+{
+    name: ""Test-Windows-Azure-SQL-LinkedService-with-AlwaysEncrypted"",
+    properties:
+    {
+        type: ""AzureSqlDatabase"",
+        typeProperties:
+        {
+            connectionString: {
+                value : ""fakeConnString"",
+                type : ""SecureString""
+            },
+            password: { 
+                type : ""AzureKeyVaultSecret"", 
+                secretName : ""fakeSecretName"", 
+                store: { 
+                    type : ""LinkedServiceReference"", 
+                    referenceName : ""AKVLinkedService"" 
+                } 
+            },
+            alwaysEncryptedSettings: {
+                alwaysEncryptedAkvAuthType: ""ServicePrincipal"",
+                servicePrincipalId: ""fakeSPID"",
+                servicePrincipalKey: {
+                    value: ""fakeSPKey"",
+                    type: ""SecureString""
+                }
             }
         }
     }
@@ -482,6 +547,40 @@ namespace DataFactory.Tests.JsonSamples
                 type : ""SecureString""
             },
             encryptedCredential: ""MyEncryptedCredentials""
+        }
+    }
+}";
+
+        [JsonSample]
+        public const string SqlLinkedServiceWithAlwaysEncrypted = @"
+{
+    name: ""LinkedService-SQLDB-with-AlwaysEncrypted"",
+    properties:
+    {
+        type: ""SqlServer"",
+        connectVia: {
+            referenceName : ""CherryAgent-01"",
+            type : ""IntegrationRuntimeReference""
+        },
+        typeProperties: {
+            connectionString: {
+                value : ""fakeConnString"",
+                type : ""SecureString""
+            },
+            userName: ""MyUserName"",
+            password: {
+                value : ""fakepassword"",
+                type : ""SecureString""
+            },
+            encryptedCredential: ""MyEncryptedCredentials"",
+            alwaysEncryptedSettings: {
+                alwaysEncryptedAkvAuthType: ""ServicePrincipal"",
+                servicePrincipalId: ""fakeSPID"",
+                servicePrincipalKey: {
+                    value: ""fakeSPKey"",
+                    type: ""SecureString""
+                }
+            }
         }
     }
 }";
