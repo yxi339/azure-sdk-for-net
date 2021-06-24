@@ -1481,6 +1481,65 @@ namespace DataFactory.Tests.JsonSamples
 }
 ";
         [JsonSample(version: "Copy")]
+        public const string CopySqlDWToSqlDW_UpsertWithTableLock = @"
+{
+    name: ""MyPipelineName"",
+    properties: 
+    {
+        description : ""Copy from SQL DW to SQL DW"",
+        activities:
+        [
+            {
+                type: ""Copy"",
+                name: ""TestActivity"",
+                description: ""Test activity description"", 
+                typeProperties:
+                {
+                    source:
+                    {
+                        type: ""SqlDWSource"",
+                        sqlReaderQuery: ""$EncryptedString$MyEncryptedQuery""
+                    },
+                    sink:
+                    {
+                        type: ""SqlDWSink"",
+                        preCopyScript: ""script"",
+                        writeBatchSize: 1000000,
+                        writeBatchTimeout: ""01:00:00"",
+                        sqlWriterUseTableLock: ""true"",
+                        writeBehavior: ""Upsert"",
+                        upsertOption:
+                        {
+                          interimSchemaName: ""schema"",
+                          keys: [""key1"", ""key2""]
+                        }
+                    }
+                },
+                inputs: 
+                [ 
+                    {
+                        referenceName: ""InputSqlDWDA"", type: ""DatasetReference""
+                    }
+                ],
+                outputs: 
+                [ 
+                    {
+                        referenceName: ""OutputSqlDWDA"", type: ""DatasetReference""
+                    }
+                ],
+                linkedServiceName: { referenceName: ""MyLinkedServiceName"", type: ""LinkedServiceReference"" },
+                policy:
+                {
+                    retry: 3,
+                    timeout: ""00:00:05"",
+                }
+            }
+        ]
+    }
+}
+";
+
+        [JsonSample(version: "Copy")]
         public const string CopyAdlsToAdls = @"
 {
     name: ""MyPipelineName"",
@@ -5745,6 +5804,7 @@ namespace DataFactory.Tests.JsonSamples
     ]
   }
 }";
+
         [JsonSample]
         public const string CopyActivity_SalesforceServiceCloud_SalesforceServiceCloud = @"{
   ""name"": ""MyPipeline"",
