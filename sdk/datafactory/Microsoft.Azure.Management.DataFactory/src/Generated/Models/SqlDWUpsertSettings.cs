@@ -11,36 +11,31 @@
 namespace Microsoft.Azure.Management.DataFactory.Models
 {
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// Sql upsert option settings
+    /// Sql DW upsert option settings
     /// </summary>
-    public partial class SqlUpsetOptionSettings
+    public partial class SqlDWUpsertSettings
     {
         /// <summary>
-        /// Initializes a new instance of the SqlUpsetOptionSettings class.
+        /// Initializes a new instance of the SqlDWUpsertSettings class.
         /// </summary>
-        public SqlUpsetOptionSettings()
+        public SqlDWUpsertSettings()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the SqlUpsetOptionSettings class.
+        /// Initializes a new instance of the SqlDWUpsertSettings class.
         /// </summary>
-        /// <param name="useTempDB">Specifies whether to use temp db for upsert
-        /// interim table. Type: boolean (or Expression with resultType
-        /// boolean).</param>
         /// <param name="interimSchemaName">Schema name for interim table.
         /// Type: string (or Expression with resultType string).</param>
-        /// <param name="keys">Key column names for unique row
-        /// identification</param>
-        public SqlUpsetOptionSettings(object useTempDB = default(object), object interimSchemaName = default(object), IList<object> keys = default(IList<object>))
+        /// <param name="keys">Key column names for unique row identification.
+        /// Type: array of strings (or Expression with resultType array of
+        /// strings).</param>
+        public SqlDWUpsertSettings(object interimSchemaName = default(object), object keys = default(object))
         {
-            UseTempDB = useTempDB;
             InterimSchemaName = interimSchemaName;
             Keys = keys;
             CustomInit();
@@ -52,13 +47,6 @@ namespace Microsoft.Azure.Management.DataFactory.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets specifies whether to use temp db for upsert interim
-        /// table. Type: boolean (or Expression with resultType boolean).
-        /// </summary>
-        [JsonProperty(PropertyName = "useTempDB")]
-        public object UseTempDB { get; set; }
-
-        /// <summary>
         /// Gets or sets schema name for interim table. Type: string (or
         /// Expression with resultType string).
         /// </summary>
@@ -66,10 +54,11 @@ namespace Microsoft.Azure.Management.DataFactory.Models
         public object InterimSchemaName { get; set; }
 
         /// <summary>
-        /// Gets or sets key column names for unique row identification
+        /// Gets or sets key column names for unique row identification. Type:
+        /// array of strings (or Expression with resultType array of strings).
         /// </summary>
         [JsonProperty(PropertyName = "keys")]
-        public IList<object> Keys { get; set; }
+        public object Keys { get; set; }
 
     }
 }

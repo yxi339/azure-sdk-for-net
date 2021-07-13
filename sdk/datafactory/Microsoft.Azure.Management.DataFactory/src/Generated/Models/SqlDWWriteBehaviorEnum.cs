@@ -12,9 +12,9 @@ namespace Microsoft.Azure.Management.DataFactory.Models
 {
 
     /// <summary>
-    /// Defines values for SqlDWWriteBehaviorType.
+    /// Defines values for SqlDWWriteBehaviorEnum.
     /// </summary>
-    public static class SqlDWWriteBehaviorType
+    public static class SqlDWWriteBehaviorEnum
     {
         public const string Insert = "Insert";
         public const string Upsert = "Upsert";

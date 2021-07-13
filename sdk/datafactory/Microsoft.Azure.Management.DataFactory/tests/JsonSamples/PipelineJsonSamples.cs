@@ -1508,7 +1508,7 @@ namespace DataFactory.Tests.JsonSamples
                         writeBatchTimeout: ""01:00:00"",
                         sqlWriterUseTableLock: ""true"",
                         writeBehavior: ""Upsert"",
-                        upsertOption:
+                        upsertSettings:
                         {
                           interimSchemaName: ""schema"",
                           keys: [""key1"", ""key2""]
