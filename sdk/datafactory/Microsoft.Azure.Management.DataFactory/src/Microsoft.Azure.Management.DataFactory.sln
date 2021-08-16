@@ -1,0 +1,27 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.Management.DataFactory", "Microsoft.Azure.Management.DataFactory.csproj", "{D2B741A9-B1E2-40EC-9D0C-6DF90A04D1AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFactory.Tests", "..\tests\Microsoft.Azure.Management.DataFactory.Tests.csproj", "{6254077E-75D6-4466-B573-37BDB240425F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2B741A9-B1E2-40EC-9D0C-6DF90A04D1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B741A9-B1E2-40EC-9D0C-6DF90A04D1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B741A9-B1E2-40EC-9D0C-6DF90A04D1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B741A9-B1E2-40EC-9D0C-6DF90A04D1AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6254077E-75D6-4466-B573-37BDB240425F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6254077E-75D6-4466-B573-37BDB240425F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6254077E-75D6-4466-B573-37BDB240425F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6254077E-75D6-4466-B573-37BDB240425F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48C958F1-8ADB-4320-B6FA-A416D5311463}
+	EndGlobalSection
+EndGlobal

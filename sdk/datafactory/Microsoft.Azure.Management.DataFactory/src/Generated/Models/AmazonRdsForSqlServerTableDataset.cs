@@ -18,27 +18,27 @@ namespace Microsoft.Azure.Management.DataFactory.Models
     using System.Linq;
 
     /// <summary>
-    /// ORC dataset.
+    /// The Amazon RDS for SQL Server dataset.
     /// </summary>
-    [Newtonsoft.Json.JsonObject("Orc")]
+    [Newtonsoft.Json.JsonObject("AmazonRdsForSqlServerTable")]
     [Rest.Serialization.JsonTransformation]
-    public partial class OrcDataset : Dataset
+    public partial class AmazonRdsForSqlServerTableDataset : Dataset
     {
         /// <summary>
-        /// Initializes a new instance of the OrcDataset class.
+        /// Initializes a new instance of the AmazonRdsForSqlServerTableDataset
+        /// class.
         /// </summary>
-        public OrcDataset()
+        public AmazonRdsForSqlServerTableDataset()
         {
             LinkedServiceName = new LinkedServiceReference();
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the OrcDataset class.
+        /// Initializes a new instance of the AmazonRdsForSqlServerTableDataset
+        /// class.
         /// </summary>
         /// <param name="linkedServiceName">Linked service reference.</param>
-        /// <param name="location">The location of the ORC data
-        /// storage.</param>
         /// <param name="additionalProperties">Unmatched properties from the
         /// message are deserialized this collection</param>
         /// <param name="description">Dataset description.</param>
@@ -53,13 +53,16 @@ namespace Microsoft.Azure.Management.DataFactory.Models
         /// describing the Dataset.</param>
         /// <param name="folder">The folder that this Dataset is in. If not
         /// specified, Dataset will appear at the root level.</param>
-        /// <param name="orcCompressionCodec">The data orcCompressionCodec.
-        /// Type: string (or Expression with resultType string).</param>
-        public OrcDataset(LinkedServiceReference linkedServiceName, DatasetLocation location, IDictionary<string, object> additionalProperties = default(IDictionary<string, object>), string description = default(string), object structure = default(object), object schema = default(object), IDictionary<string, ParameterSpecification> parameters = default(IDictionary<string, ParameterSpecification>), IList<object> annotations = default(IList<object>), DatasetFolder folder = default(DatasetFolder), object orcCompressionCodec = default(object))
+        /// <param name="amazonRdsForSqlServerTableDatasetSchema">The schema
+        /// name of the SQL Server dataset. Type: string (or Expression with
+        /// resultType string).</param>
+        /// <param name="table">The table name of the SQL Server dataset. Type:
+        /// string (or Expression with resultType string).</param>
+        public AmazonRdsForSqlServerTableDataset(LinkedServiceReference linkedServiceName, IDictionary<string, object> additionalProperties = default(IDictionary<string, object>), string description = default(string), object structure = default(object), object schema = default(object), IDictionary<string, ParameterSpecification> parameters = default(IDictionary<string, ParameterSpecification>), IList<object> annotations = default(IList<object>), DatasetFolder folder = default(DatasetFolder), object amazonRdsForSqlServerTableDatasetSchema = default(object), object table = default(object))
             : base(linkedServiceName, additionalProperties, description, structure, schema, parameters, annotations, folder)
         {
-            Location = location;
-            OrcCompressionCodec = orcCompressionCodec;
+            AmazonRdsForSqlServerTableDatasetSchema = amazonRdsForSqlServerTableDatasetSchema;
+            Table = table;
             CustomInit();
         }
 
@@ -69,17 +72,18 @@ namespace Microsoft.Azure.Management.DataFactory.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the location of the ORC data storage.
+        /// Gets or sets the schema name of the SQL Server dataset. Type:
+        /// string (or Expression with resultType string).
         /// </summary>
-        [JsonProperty(PropertyName = "typeProperties.location")]
-        public DatasetLocation Location { get; set; }
+        [JsonProperty(PropertyName = "typeProperties.schema")]
+        public object AmazonRdsForSqlServerTableDatasetSchema { get; set; }
 
         /// <summary>
-        /// Gets or sets the data orcCompressionCodec. Type: string (or
-        /// Expression with resultType string).
+        /// Gets or sets the table name of the SQL Server dataset. Type: string
+        /// (or Expression with resultType string).
         /// </summary>
-        [JsonProperty(PropertyName = "typeProperties.orcCompressionCodec")]
-        public object OrcCompressionCodec { get; set; }
+        [JsonProperty(PropertyName = "typeProperties.table")]
+        public object Table { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -90,10 +94,6 @@ namespace Microsoft.Azure.Management.DataFactory.Models
         public override void Validate()
         {
             base.Validate();
-            if (Location == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Location");
-            }
         }
     }
 }

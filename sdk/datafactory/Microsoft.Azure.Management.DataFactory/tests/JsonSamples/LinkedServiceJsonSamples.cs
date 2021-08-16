@@ -531,6 +531,31 @@ namespace DataFactory.Tests.JsonSamples
         }
     }
 }";
+        [JsonSample]
+        public const string AmazonRdsForSqlServerLinkedService = @"
+{
+    name: ""LinkedService-AmazonRdsForSqlServer"",
+    properties:
+    {
+        type: ""AmazonRdsForSqlServer"",
+        connectVia: {
+            referenceName : ""CherryAgent-01"",
+            type : ""IntegrationRuntimeReference""
+        },
+        typeProperties: {
+            connectionString: {
+                value : ""fakeConnString"",
+                type : ""SecureString""
+            },
+            userName: ""MyUserName"",
+            password: {
+                value : ""fakepassword"",
+                type : ""SecureString""
+            },
+            encryptedCredential: ""MyEncryptedCredentials""
+        }
+    }
+}";
 
         [JsonSample]
         public const string OracleLinkedService = @"

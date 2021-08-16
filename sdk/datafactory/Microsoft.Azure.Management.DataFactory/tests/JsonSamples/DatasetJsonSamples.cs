@@ -165,6 +165,25 @@ namespace DataFactory.Tests.JsonSamples
     }
 }
 ";
+        [JsonSample]
+        public const string AmazonRdsForSqlServerTable = @"
+{
+    name: ""AmazonRdsForSqlServerTable"",
+    properties:
+    {
+        type: ""AmazonRdsForSqlServerTable"",
+        linkedServiceName: 
+        {  
+            referenceName : ""ls"",
+            type : ""LinkedServiceReference""
+        },
+        typeProperties:
+        {            
+            table: ""$EncryptedString$MyEncryptedTableName""
+        }
+    }
+}
+";
 
         [JsonSample]
         public const string CustomDataset = @"

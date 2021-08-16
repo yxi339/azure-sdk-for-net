@@ -705,6 +705,73 @@ namespace DataFactory.Tests.JsonSamples
 }
 ";
 
+        [JsonSample(version: "Copy")]
+        public const string CopyAmazonRdsForSqlServerToBlobWithPartitionOption = @"
+{
+    name: ""MyPipelineName"",
+    properties: 
+    {
+        description : ""Copy from AmazonRdsForSqlServer to Blob"",
+        activities:
+        [
+            {
+                type: ""Copy"",
+                name: ""TestActivity"",
+                description: ""Test activity description"", 
+                typeProperties:
+                {
+                    source:
+                    {
+                        type: ""AmazonRdsForSqlServerSource"",
+                        sqlReaderQuery: ""$EncryptedString$MyEncryptedQuery"",
+                        partitionOption: {
+                            ""value"": ""pipeline().parameters.parallelOption"",
+                            ""type"": ""Expression""
+                        },
+                        partitionSettings: 
+                        {
+                            partitionColumnName: ""partitionColumnName"",
+                            partitionUpperBound: ""10"",
+                            partitionLowerBound: ""1""
+                        }
+                    },
+                    sink:
+                    {
+                        type: ""BlobSink"",
+                        blobWriterAddHeader: true,
+                        writeBatchSize: 1000000,
+                        writeBatchTimeout: ""01:00:00""
+                    },
+                    translator:
+                    {
+                        type: ""TabularTranslator"",
+                        columnMappings: ""PartitionKey:PartitionKey""
+                    }
+                },
+                inputs: 
+                [ 
+                    {
+                        referenceName: ""InputAmazonRdsForSqlServerDA"", type: ""DatasetReference""
+                    }
+                ],
+                outputs: 
+                [ 
+                    {
+                        referenceName: ""OutputBlobDA"", type: ""DatasetReference""
+                    }
+                ],
+                linkedServiceName: { referenceName: ""MyLinkedServiceName"", type: ""LinkedServiceReference"" },
+                policy:
+                {
+                    retry: 3,
+                    timeout: ""00:00:05"",
+                }
+            }
+        ]
+    }
+}
+";
+
 
         [JsonSample(version: "Copy")]
         public const string CopySqlToBlobWithTabularTranslator = @"
