@@ -206,6 +206,38 @@ namespace DataFactory.Tests.JsonSamples
         }
     }
 }";
+        [JsonSample]
+        public const string HDISLinkedServiceWithSqlAlwaysEncryptedUamiProperties = @"
+{
+    name: ""Test-HDIS-LinkedService"",
+    properties:
+    {
+        type: ""SqlServer"",
+        connectVia: {
+            referenceName : ""Connection1"",
+            type : ""IntegrationRuntimeReference""
+        },
+        typeProperties:
+        {
+            connectionString: {
+                value : ""fakeConnString"",
+                type : ""SecureString""
+            },
+            userName: ""WindowsAuthUserName"",
+            password: {
+                value : ""fakepassword"",
+                type : ""SecureString""
+            },
+            alwaysEncryptedSettings: {
+                alwaysEncryptedAkvAuthType: ""UserAssignedManagedIdentity"",
+                credential: {
+                    type: ""CredentialReference"",
+                    referenceName: ""fakeReference""
+                }
+            }
+        }
+    }
+}";
 
         [JsonSample]
         public const string AzureSqlLinkedService = @"
